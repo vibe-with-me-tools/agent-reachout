@@ -194,6 +194,9 @@ bun run start    # Run normally
 - [ ] Multiple chat ID support (notify different people)
 - [ ] Message formatting (markdown, buttons)
 
+## Feedback
+If you’re using this or thinking about it, issues and comments are very welcome.
+
 ## License
 
 MIT
