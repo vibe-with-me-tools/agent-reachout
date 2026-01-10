@@ -4,6 +4,8 @@ A minimal Claude Code plugin that lets Claude message you on Telegram.
 
 Start a task, walk away from your computer, and get notified on your phone when Claude finishes work, hits a blocker, or needs a decision. Reply directly from Telegram to keep things moving.
 
+![Agent Reachout – Claude Code to Telegram flow](assets/agent-reachout-flow.png)
+
 ## Features
 
 - **Mobile-first**: Get notifications and respond from your phone, smartwatch, or any Telegram client
