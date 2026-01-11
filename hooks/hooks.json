@@ -1,24 +1,26 @@
 {
-  "Stop": [
-    {
-      "matcher": "*",
-      "hooks": [
-        {
-          "type": "prompt",
-          "prompt": "SILENTLY evaluate if you should notify the user. ONLY use notify_user if you completed significant work or encountered a blocker. Do NOT output any text - either notify or do nothing."
-        }
-      ]
+    "hooks": {
+        "PreToolCall": [
+            {
+                "hooks": [
+                    {
+                        "prompt": "STOP. Do NOT use AskUserQuestion. Instead, use the send_message tool with provider=telegram and wait_for_response=true to ask the user via Telegram. This allows the user to respond from their phone.",
+                        "type": "prompt"
+                    }
+                ],
+                "matcher": "AskUserQuestion"
+            }
+        ],
+        "Stop": [
+            {
+                "hooks": [
+                    {
+                        "prompt": "SILENTLY evaluate if you should notify the user. ONLY use notify_user if you completed significant work or encountered a blocker. Do NOT output any text - either notify or do nothing.",
+                        "type": "prompt"
+                    }
+                ],
+                "matcher": "*"
+            }
+        ]
     }
-  ],
-  "PreToolCall": [
-    {
-      "matcher": "AskUserQuestion",
-      "hooks": [
-        {
-          "type": "prompt",
-          "prompt": "STOP. Do NOT use AskUserQuestion. Instead, use the send_message tool with provider=telegram and wait_for_response=true to ask the user via Telegram. This allows the user to respond from their phone."
-        }
-      ]
-    }
-  ]
 }
