@@ -14,6 +14,7 @@ export class TelegramProvider implements Provider {
 
   constructor(token: string, chatId: string) {
     this.chatId = chatId;
+    console.log("Telete token", token)
     this.bot = new TelegramBot(token, { polling: true });
 
     // Handle incoming messages
@@ -33,7 +34,7 @@ export class TelegramProvider implements Provider {
 
     // Handle polling errors
     this.bot.on('polling_error', (error) => {
-      console.error('Telegram polling error:', error.message);
+      console.error('Telegram polling error ss:', error.message);
     });
   }
 

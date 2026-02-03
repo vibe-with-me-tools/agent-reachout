@@ -1,6 +1,6 @@
 {
   "name": "agent-reachout",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Multi-provider notification plugin for Claude Code",
   "author": {
     "name": "vibe-with-me-tools",
@@ -8,14 +8,26 @@
   },
   "repository": "https://github.com/vibe-with-me-tools/agent-reachout",
   "license": "MIT",
-  "keywords": ["notifications", "telegram", "messaging", "alerts", "claude-code-plugin", "llm-notifications"],
+  "keywords": [
+    "notifications",
+    "telegram",
+    "messaging",
+    "alerts",
+    "claude-code-plugin",
+    "llm-notifications"
+  ],
   "mcpServers": {
     "agent-reachout": {
       "command": "bun",
-      "args": ["run", "${CLAUDE_PLUGIN_ROOT}/server/src/index.ts"],
+      "args": [
+        "run",
+        "--cwd",
+        "${CLAUDE_PLUGIN_ROOT}/server",
+        "start"
+      ],
       "env": {
-        "AGENT_REACHOUT_TELEGRAM_BOT_TOKEN": "${TELEGRAM_BOT_TOKEN}",
-        "AGENT_REACHOUT_TELEGRAM_CHAT_ID": "${TELEGRAM_CHAT_ID}"
+        "AGENT_REACHOUT_TELEGRAM_BOT_TOKEN": "${AGENT_REACHOUT_TELEGRAM_BOT_TOKEN}",
+        "AGENT_REACHOUT_TELEGRAM_CHAT_ID": "${AGENT_REACHOUT_TELEGRAM_CHAT_ID}"
       }
     }
   }

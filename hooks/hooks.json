@@ -1,26 +1,36 @@
 {
-    "hooks": {
-        "PreToolUse": [
-            {
-                "hooks": [
-                    {
-                        "prompt": "STOP. Do NOT use AskUserQuestion. Instead, use the send_message tool with provider=telegram and wait_for_response=true to ask the user via Telegram. This allows the user to respond from their phone.",
-                        "type": "prompt"
-                    }
-                ],
-                "matcher": "AskUserQuestion"
-            }
-        ],
-        "Stop": [
-            {
-                "hooks": [
-                    {
-                        "prompt": "SILENTLY evaluate if you should notify the user. ONLY use notify_user if you completed significant work or encountered a blocker. Do NOT output any text - either notify or do nothing.",
-                        "type": "prompt"
-                    }
-                ],
-                "matcher": "*"
-            }
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/send-telegram.sh"
+          }
         ]
-    }
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/send-telegram.sh"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/send-telegram.sh"
+          }
+        ]
+      }
+    ]
+  }
 }

@@ -108,8 +108,8 @@ Set the following environment variables. You can add them to your shell profile 
 **Shell format:**
 
 ```bash
-export TELEGRAM_BOT_TOKEN=your_bot_token_here
-export TELEGRAM_CHAT_ID=your_chat_id_here
+export AGENT_REACHOUT_TELEGRAM_BOT_TOKEN=your_bot_token_here
+export AGENT_REACHOUT_TELEGRAM_CHAT_ID=your_chat_id_here
 ```
 
 **Or in your Claude Code settings** (`~/.claude/settings.json`):
@@ -117,8 +117,8 @@ export TELEGRAM_CHAT_ID=your_chat_id_here
 ```json
 {
   "env": {
-    "TELEGRAM_BOT_TOKEN": "your_bot_token_here",
-    "TELEGRAM_CHAT_ID": "your_chat_id_here"
+    "AGENT_REACHOUT_TELEGRAM_BOT_TOKEN": "your_bot_token_here",
+    "AGENT_REACHOUT_TELEGRAM_CHAT_ID": "your_chat_id_here"
   }
 }
 ```
@@ -128,9 +128,13 @@ export TELEGRAM_CHAT_ID=your_chat_id_here
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `TELEGRAM_BOT_TOKEN` | Yes | Bot token from @BotFather |
-| `TELEGRAM_CHAT_ID` | Yes | Your personal chat ID from @userinfobot |
+| `AGENT_REACHOUT_TELEGRAM_BOT_TOKEN` | Yes | Bot token from @BotFather |
+| `AGENT_REACHOUT_TELEGRAM_CHAT_ID` | Yes | Your personal chat ID from @userinfobot |
 | `AGENT_REACHOUT_NOTIFY_DEFAULT_TIMEOUT_MS` | No | Timeout for waiting for responses (default: 300000ms / 5 min) |
+| `AGENT_REACHOUT_CLAUDE_COMMAND` | No | Claude Code CLI command for Telegram task runner (default: `claude`) |
+| `AGENT_REACHOUT_TELEGRAM_TASK_PREFIX` | No | Telegram command prefix for tasks (default: `/task`) |
+| `AGENT_REACHOUT_ALLOWED_TOOLS` | No | Allowed tools for Agent SDK CLI (passed to `--allowedTools`) |
+| `AGENT_REACHOUT_HISTORY_LIMIT` | No | Max number of task history entries to keep (default: 25) |
 
 </details>
 
@@ -146,6 +150,40 @@ Run these commands in Claude Code:
 ```
 
 Restart Claude Code. Done!
+
+---
+
+## Start tasks from Telegram (Agent SDK)
+
+You can trigger Claude Code tasks by sending a Telegram message.
+Tasks are queued and executed one at a time. The runner keeps a short in-memory
+history and remembers the latest Claude session ID for `/continue`.
+
+1. Ensure the Claude Code CLI is installed and authenticated.
+2. From the `server/` directory, run:
+
+```
+bun run telegram-agent
+```
+
+3. In Telegram, send a message like:
+
+```
+/task Summarize the repo and propose next steps
+```
+
+The runner uses the Agent SDK CLI (`claude -p`) to execute the task and replies with the result.
+
+### Telegram commands
+
+- `/task <description>`: start a new task (queued)
+- `/continue <description>`: continue the latest session
+- `/resume <session_id> <description>`: resume a specific session
+- `/history [count]`: show recent jobs
+- `/status`: show current job + queue depth + last session + allowed tools
+- `/allowed_tools <list>`: set CLI `--allowedTools` for future tasks (send empty to clear)
+- `/cancel`: cancel the current job and clear the queue
+- `/help`: list commands
 
 ## Roadmap
 

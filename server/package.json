@@ -6,9 +6,11 @@
   "type": "module",
   "private": true,
   "scripts": {
+    "prestart": "bun install --silent",
     "start": "bun run src/index.ts",
     "dev": "bun --watch run src/index.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "telegram-agent": "bun run src/telegram-agent.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",
